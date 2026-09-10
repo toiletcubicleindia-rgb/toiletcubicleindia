@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Toilet Cubicle India — Blog Admin</title>
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <style>
+    :root{--green:#123b32;--green2:#1e6b59;--gold:#d8a84e;--bg:#f5f7f6;--card:#fff;--text:#17211f;--muted:#66736f;--border:#dfe6e3;--danger:#b42318}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif}
+    header{background:var(--green);color:#fff;padding:16px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px;position:sticky;top:0;z-index:5}
+    header strong{font-size:18px} header small{opacity:.75}
+    .wrap{max-width:1280px;margin:auto;padding:24px}
+    .grid{display:grid;grid-template-columns:310px 1fr;gap:20px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;box-shadow:0 4px 18px rgba(18,59,50,.05)}
+    label{display:block;font-size:13px;font-weight:800;margin:0 0 7px}
+    input,textarea,select{width:100%;border:1px solid var(--border);border-radius:9px;padding:11px 12px;font:inherit;background:#fff}
+    textarea{min-height:110px;resize:vertical}.content{min-height:440px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px}
+    .field{margin-bottom:14px}.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    button{border:0;border-radius:9px;padding:11px 15px;font-weight:800;cursor:pointer}
+    .primary{background:var(--green2);color:#fff}.gold{background:var(--gold);color:var(--green);}.ghost{background:#edf2f0;color:var(--green)}.danger{background:#fee4e2;color:var(--danger)}
+    .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.status{margin:0 0 15px;padding:10px 12px;border-radius:9px;background:#edf7f3;color:var(--green2);font-size:13px;display:none}
+    .status.error{background:#fff0ee;color:var(--danger)} .post{padding:12px 0;border-bottom:1px solid var(--border)}
+    .post:last-child{border-bottom:0}.post-title{font-weight:800;margin-bottom:4px}.post-meta{font-size:12px;color:var(--muted);word-break:break-all}
+    .post button{padding:7px 9px;margin-top:7px}.hint{font-size:12px;color:var(--muted);line-height:1.55}
+    .topnote{margin-bottom:18px}.hidden{display:none!important}
+    @media(max-width:900px){.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}header{position:static}}
+  </style>
+</head>
+<body>
+<header>
+  <div><strong>Toilet Cubicle India — Blog Admin</strong><br><small>GitHub-powered static CMS</small></div>
+  <button class="ghost" id="logoutBtn">Clear Token</button>
+</header>
+
+<div class="wrap">
+  <div id="status" class="status"></div>
+
+  <div class="card topnote">
+    <div class="row">
+      <div class="field">
+        <label>GitHub Personal Access Token</label>
+        <input id="token" type="password" autocomplete="off" placeholder="Paste token for this browser session">
+      </div>
+      <div class="field">
+        <label>Repository</label>
+        <input value="toiletcubicleindia-rgb/toiletcubicleindia" disabled>
+      </div>
+    </div>
+    <p class="hint">
+      The token is kept only in this browser session and is never written into your repository.
+      Use a GitHub fine-grained token with access to this repository and Contents: Read and write.
+      Do not paste the token into any HTML file.
+    </p>
+    <div class="actions">
+      <button class="primary" id="connectBtn">Connect to GitHub</button>
+      <button class="ghost" id="newBtn">New Blog Post</button>
+      <button class="ghost" id="refreshBtn">Refresh Posts</button>
+    </div>
+  </div>
+
+  <div class="grid">
+    <aside class="card">
+      <h3 style="margin-top:0">Published Posts</h3>
+      <div id="postList"><p class="hint">Connect to GitHub to load posts.</p></div>
+    </aside>
+
+    <main class="card">
+      <h2 id="formHeading" style="margin-top:0">New Blog Post</h2>
+      <form id="postForm">
+        <input type="hidden" id="originalPath">
+
+        <div class="field">
+          <label>Blog Title *</label>
+          <input id="title" required placeholder="e.g. How to Choose Reliable Toilet Cubicles for Commercial Projects">
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>URL Slug *</label>
+            <input id="slug" required placeholder="reliable-toilet-cubicles-commercial-projects">
+          </div>
+          <div class="field">
+            <label>Primary Keyword</label>
+            <input id="keyword" placeholder="toilet cubicles">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Secondary Keywords</label>
+          <input id="secondary" placeholder="HPL toilet cubicles, commercial toilet cubicles, toilet cubicle manufacturers">
+        </div>
+
+        <div class="field">
+          <label>Meta Title</label>
+          <input id="metaTitle" maxlength="60" placeholder="SEO title, ideally around 50–60 characters">
+        </div>
+
+        <div class="field">
+          <label>Meta Description</label>
+          <textarea id="metaDescription" maxlength="160" placeholder="Useful, natural description for search results"></textarea>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Featured Image URL</label>
+            <input id="image" placeholder="https://toiletcubicleindia.net/assets/images/...">
+          </div>
+          <div class="field">
+            <label>Image ALT Text</label>
+            <input id="imageAlt" placeholder="HPL toilet cubicles for commercial washrooms">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label>Author</label>
+            <input id="author" value="Toilet Cubicle India">
+          </div>
+          <div class="field">
+            <label>Publish Date</label>
+            <input id="date" type="date">
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Canonical URL</label>
+          <input id="canonical" placeholder="Leave blank to generate automatically">
+        </div>
+
+        <div class="field">
+          <label>Blog Content *</label>
+          <textarea id="content" class="content" required placeholder="Write HTML content here. Use h2, h3, p, ul, ol, strong and a tags. Do not paste script tags."></textarea>
+        </div>
+
+        <div class="actions">
+          <button class="primary" type="submit">Publish / Update Blog</button>
+          <button class="ghost" type="button" id="previewBtn">Preview</button>
+          <button class="danger hidden" type="button" id="deleteBtn">Delete Current Post</button>
+          <button class="ghost" type="button" id="clearBtn">Clear Form</button>
+        </div>
+      </form>
+    </main>
+  </div>
+</div>
+
+<script>
+const OWNER="toiletcubicleindia-rgb", REPO="toiletcubicleindia", BRANCH="main";
+const SITE="https://toiletcubicleindia.net";
+const tokenEl=document.getElementById("token");
+let token=sessionStorage.getItem("tcms_token")||"";
+tokenEl.value=token;
+document.getElementById("date").value=new Date().toISOString().slice(0,10);
+
+function status(msg,error=false){
+  const el=document.getElementById("status"); el.textContent=msg; el.style.display="block";
+  el.className="status"+(error?" error":""); setTimeout(()=>el.style.display="none",6000);
+}
+function headers(){return {"Authorization":"Bearer "+token,"Accept":"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28"}}
+async function api(url,opts={}){
+  if(!token) throw new Error("Connect to GitHub first.");
+  const r=await fetch(url,{...opts,headers:{...headers(),...(opts.headers||{})}});
+  const data=await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(data.message||("GitHub API error "+r.status));
+  return data;
+}
+function esc(s){return String(s||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
+function slugify(s){return s.toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"").slice(0,100);}
+function get(id){return document.getElementById(id).value.trim();}
+function setv(id,v){document.getElementById(id).value=v||"";}
+
+async function loadPosts(){
+  const box=document.getElementById("postList");
+  box.innerHTML="<p class='hint'>Loading...</p>";
+  try{
+    const data=await api(`https://api.github.com/repos/${OWNER}/${REPO}/contents/blog/posts?ref=${BRANCH}`);
+    const files=Array.isArray(data)?data.filter(x=>x.type==="file"&&x.name.endsWith(".html")).sort((a,b)=>a.name.localeCompare(b.name)):[],
+          html=files.length?files.map(f=>`<div class="post"><div class="post-title">${esc(f.name.replace(/\.html$/,"").replace(/-/g," "))}</div><div class="post-meta">${esc(f.path)}</div><button class="ghost" onclick="editPost('${encodeURIComponent(f.path)}')">Edit</button></div>`).join(""):"<p class='hint'>No blog posts yet.</p>";
+    box.innerHTML=html;
+  }catch(e){box.innerHTML="<p class='hint'>Could not load posts.</p>";status(e.message,true);}
+}
+window.editPost=async function(encoded){
+  try{
+    const path=decodeURIComponent(encoded), data=await api(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`);
+    const raw=decodeURIComponent(escape(atob(data.content.replace(/\n/g,""))));
+    const parser=new DOMParser(), doc=parser.parseFromString(raw,"text/html");
+    setv("originalPath",path);
+    setv("title",doc.querySelector("h1")?.textContent||"");
+    setv("slug",path.split("/").pop().replace(/\.html$/,""));
+    setv("keyword",doc.querySelector('meta[name="keywords"]')?.content.split(",")[0]||"");
+    setv("secondary",doc.querySelector('meta[name="keywords"]')?.content.split(",").slice(1).join(",").trim()||"");
+    setv("metaTitle",doc.title||"");
+    setv("metaDescription",doc.querySelector('meta[name="description"]')?.content||"");
+    setv("image",doc.querySelector('meta[property="og:image"]')?.content||"");
+    setv("imageAlt",doc.querySelector("article img")?.alt||"");
+    setv("canonical",doc.querySelector('link[rel="canonical"]')?.href||"");
+    setv("author",doc.querySelector('meta[name="author"]')?.content||"Toilet Cubicle India");
+    setv("date",doc.querySelector("time")?.getAttribute("datetime")||"");
+    const article=doc.querySelector("article"); if(article){const clone=article.cloneNode(true);clone.querySelector("h1")?.remove();clone.querySelector("time")?.remove();clone.querySelector(".post-image")?.remove();setv("content",clone.innerHTML.trim());}
+    document.getElementById("formHeading").textContent="Edit Blog Post";
+    document.getElementById("deleteBtn").classList.remove("hidden");
+    window.scrollTo({top:0,behavior:"smooth"});
+    status("Post loaded for editing.");
+  }catch(e){status(e.message,true);}
+};
+function clearForm(){
+  document.getElementById("postForm").reset();
+  setv("originalPath","");
+  setv("author","Toilet Cubicle India");
+  setv("date",new Date().toISOString().slice(0,10));
+  document.getElementById("formHeading").textContent="New Blog Post";
+  document.getElementById("deleteBtn").classList.add("hidden");
+}
+function buildPost(){
+  const title=get("title"),slug=slugify(get("slug")||title),date=get("date")||new Date().toISOString().slice(0,10);
+  const metaTitle=get("metaTitle")||title, desc=get("metaDescription"), img=get("image"), alt=get("imageAlt")||title;
+  const canonical=get("canonical")||`${SITE}/blog/posts/${slug}.html`;
+  const keywords=[get("keyword"),...get("secondary").split(",").map(x=>x.trim())].filter(Boolean).join(", ");
+  const articleContent=get("content");
+  return `<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${esc(metaTitle)}</title>
+<meta name="description" content="${esc(desc)}">
+<meta name="keywords" content="${esc(keywords)}">
+<meta name="author" content="${esc(get("author")||"Toilet Cubicle India")}">
+<link rel="canonical" href="${esc(canonical)}">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="article"><meta property="og:title" content="${esc(metaTitle)}"><meta property="og:description" content="${esc(desc)}"><meta property="og:url" content="${esc(canonical)}">${img?`<meta property="og:image" content="${esc(img)}">`:""}
+<meta name="twitter:card" content="${img?"summary_large_image":"summary"}"><meta name="twitter:title" content="${esc(metaTitle)}"><meta name="twitter:description" content="${esc(desc)}">
+${img?`<meta name="twitter:image" content="${esc(img)}">`:""}
+<style>
+body{margin:0;font-family:Arial,sans-serif;color:#17211f;background:#f6f8f7;line-height:1.75}
+.site{background:#123b32;color:#fff;padding:16px 22px}.site a{color:#fff;text-decoration:none;font-weight:800}
+main{max-width:900px;margin:40px auto;padding:0 20px}.post{background:#fff;padding:35px;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+h1{line-height:1.2;font-size:clamp(32px,5vw,52px);color:#123b32}h2{color:#1e6b59;margin-top:32px}
+.meta{color:#66736f;font-size:14px}.post-image{width:100%;height:auto;border-radius:12px;margin:20px 0}
+a{color:#1e6b59}footer{margin-top:35px;padding:30px 20px;background:#071f1a;color:#fff}
+</style></head>
+<body><header class="site"><a href="${SITE}/">Toilet Cubicle India</a></header>
+<main><article class="post"><h1>${esc(title)}</h1><div class="meta">Published <time datetime="${esc(date)}">${esc(date)}</time> · ${esc(get("author")||"Toilet Cubicle India")}</div>
+${img?`<img class="post-image" src="${esc(img)}" alt="${esc(alt)}" loading="eager">`:""}
+${articleContent}
+</article></main><footer>© 2026 Toilet Cubicle India · ${SITE}</footer></body></html>`;
+}
+function b64utf8(str){return btoa(unescape(encodeURIComponent(str)));}
+
+async function putFile(path,content,message,sha){
+  const body={message,content:b64utf8(content),branch:BRANCH};
+  if(sha)body.sha=sha;
+  return api(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}`,{method:"PUT",body:JSON.stringify(body)});
+}
+async function getFile(path){
+  try{return await api(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`)}catch(e){if(e.message.includes("Not Found"))return null;throw e;}
+}
+async function regenerateBlogIndex(){
+  const data=await api(`https://api.github.com/repos/${OWNER}/${REPO}/contents/blog/posts?ref=${BRANCH}`);
+  const files=Array.isArray(data)?data.filter(x=>x.type==="file"&&x.name.endsWith(".html")).sort((a,b)=>a.name.localeCompare(b.name)):[],
+        cards=[];
+  for(const f of files){
+    const p=await api(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${f.path}?ref=${BRANCH}`);
+    const raw=decodeURIComponent(escape(atob(p.content.replace(/\n/g,"")))),d=new DOMParser().parseFromString(raw,"text/html");
+    const title=d.querySelector("h1")?.textContent||f.name, desc=d.querySelector('meta[name="description"]')?.content||"",date=d.querySelector("time")?.getAttribute("datetime")||"";
+    cards.push(`<article class="card"><h2><a href="/blog/posts/${esc(f.name)}">${esc(title)}</a></h2><p class="meta">${esc(date)}</p><p>${esc(desc)}</p><a class="read" href="/blog/posts/${esc(f.name)}">Read Article →</a></article>`);
+  }
+  const index=`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Blog | Toilet Cubicle India</title><meta name="description" content="Practical guides, product insights and washroom planning advice from Toilet Cubicle India."><link rel="canonical" href="${SITE}/blog/"><style>body{margin:0;font-family:Arial,sans-serif;background:#f6f8f7;color:#17211f}.hero{background:#123b32;color:#fff;padding:55px 20px}.wrap{max-width:1100px;margin:auto}.hero h1{font-size:46px;margin:0 0 10px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;padding:35px 20px}.card{background:#fff;border:1px solid #dfe6e3;border-radius:14px;padding:25px}.card h2{margin-top:0}.card a{color:#123b32}.meta{color:#66736f;font-size:13px}.read{font-weight:800}@media(max-width:700px){.grid{grid-template-columns:1fr}}</style></head><body><header class="hero"><div class="wrap"><h1>Toilet Cubicle India Blog</h1><p>Guides and insights on toilet cubicles, HPL partitions and commercial washroom solutions.</p></div></header><main class="wrap"><section class="grid">${cards.join("")||"<p>No articles published yet.</p>"}</section></main></body></html>`;
+  const existing=await getFile("blog/index.html"); await putFile("blog/index.html",index,"Update blog index",existing?.sha);
+}
+async function regenerateSitemap(){
+  const paths=["","blog/"];
+  const data=await api(`https://api.github.com/repos/${OWNER}/${REPO}/contents/blog/posts?ref=${BRANCH}`);
+  if(Array.isArray(data))data.filter(x=>x.type==="file"&&x.name.endsWith(".html")).forEach(x=>paths.push("blog/posts/"+x.name));
+  const urls=paths.map(p=>`<url><loc>${SITE}/${p}</loc></url>`).join("");
+  const xml=`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${urls}</urlset>`;
+  const existing=await getFile("sitemap.xml"); await putFile("sitemap.xml",xml,"Update sitemap",existing?.sha);
+}
+
+document.getElementById("connectBtn").onclick=async()=>{
+  token=tokenEl.value.trim(); if(!token)return status("Paste a GitHub token first.",true);
+  sessionStorage.setItem("tcms_token",token);
+  try{await api(`https://api.github.com/repos/${OWNER}/${REPO}`);status("Connected to GitHub.");await loadPosts();}catch(e){sessionStorage.removeItem("tcms_token");token="";status(e.message,true);}
+};
+document.getElementById("refreshBtn").onclick=loadPosts;
+document.getElementById("newBtn").onclick=clearForm;
+document.getElementById("clearBtn").onclick=clearForm;
+document.getElementById("logoutBtn").onclick=()=>{sessionStorage.removeItem("tcms_token");token="";tokenEl.value="";status("Token cleared from this browser.");};
+document.getElementById("title").addEventListener("input",e=>{if(!get("originalPath"))setv("slug",slugify(e.target.value));});
+document.getElementById("previewBtn").onclick=()=>{
+  const w=window.open("about:blank","_blank"); if(w)w.document.write(buildPost());
+};
+document.getElementById("postForm").onsubmit=async e=>{
+  e.preventDefault();
+  try{
+    const slug=slugify(get("slug")||get("title")), path=`blog/posts/${slug}.html`, original=get("originalPath");
+    if(!get("metaDescription")){status("Add a meta description before publishing.",true);return;}
+    if(!get("keyword")){status("Add a primary keyword before publishing.",true);return;}
+    const existing=await getFile(path), old=original?await getFile(original):null;
+    if(existing && !original){if(!confirm("This slug already exists. Replace it?"))return;}
+    await putFile(path,buildPost(),(original?"Update":"Publish")+" blog: "+get("title"),existing?.sha);
+    if(original && original!==path && old){await api(`https://api.github.com/repos/${OWNER}/${REPO}/contents/${original}`,{method:"DELETE",body:JSON.stringify({message:"Remove old blog slug",sha:old.sha,branch:BRANCH})});}
+    await regenerateBlogIndex(); await regenerateSitemap();
+    status("Published successfully. Blog index and sitemap updated.");
+    clearForm(); await loadPosts();
+  }catch(e){status(e.message,true);}
+};
+if(token){api(`https://api.github.com/repos/${OWNER}/${REPO}`).then(()=>loadPosts()).catch(()=>{sessionStorage.removeItem("tcms_token");token="";tokenEl.value="";});}
+</script>
+</body></html>
