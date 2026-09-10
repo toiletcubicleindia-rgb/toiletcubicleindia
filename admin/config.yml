@@ -1,0 +1,19 @@
+# This config documents the repository and CMS structure.
+# The included admin/index.html is a lightweight GitHub API CMS and does not
+# require Decap CMS/OAuth. Keep this file in /admin/ for reference or future migration.
+#
+# Repository:
+#   github.com/toiletcubicleindia-rgb/toiletcubicleindia
+#
+# Branch: main
+# Site: https://toiletcubicleindia.net
+#
+# Content:
+#   blog/posts/*.html
+#
+# The admin panel creates/updates:
+#   blog/index.html
+#   sitemap.xml
+#
+# Security:
+#   Never put a GitHub token in this file or commit one to the repository.
